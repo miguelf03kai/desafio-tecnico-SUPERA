@@ -1,0 +1,1 @@
+## Solução teste tecnico SUPERA
