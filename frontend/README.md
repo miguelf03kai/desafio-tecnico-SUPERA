@@ -1,6 +1,6 @@
 # ListaApp
 
-Esse projeto foi gerado com [Angular CLI](https://github.com/angular/angular-cli) versão 14.2.3.
+Este projeto foi gerado com [Angular CLI](https://github.com/angular/angular-cli) versão 14.2.3.
 
 ## Development server
 
