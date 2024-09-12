@@ -1,0 +1,53 @@
+.container {
+	padding: 20px;
+  }
+  
+  /* .lista-cards {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+  }
+   */
+  .card {
+	padding: 5px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: 0.3s;
+	margin-bottom: 10px;
+  }
+  
+  .card:hover {
+	background-color: #f0f0f0;
+  }
+  
+  .error-message {
+	color: red;
+	font-size: 0.9em;
+	margin-top: 0.5em;
+  }	
+
+  .filtro-ordenacao {
+	display: flex;
+	gap: 10px;
+	margin-bottom: 20px;
+  }
+
+  .lista-cards, .itens-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Define colunas flexíveis */
+	gap: 16px; /* Espaço entre os cards */
+	margin-top: 20px;
+  }
+
+  input{
+	margin-right: 10px;
+}
+
+select{
+	margin-right: 10px;
+}
+
+button{
+	margin-right: 10px;
+}

@@ -1,0 +1,49 @@
+<div class="container">
+	<h1>Prioridades de Items</h1>
+  
+	<div class="filtro-ordenacao">
+	  <input type="text" [(ngModel)]="filtroPrioridade" name="filtroPrioridade" placeholder="Filtrar Prioridades por Descrição">
+	  <select [(ngModel)]="ordenacaoPrioridades" name="ordenacaoPrioridades">
+		<option value="descricao">Ordenar Listas por Descrição</option>
+	  </select>
+	  <button (click)="abrirFormularioPrioridade()">Adicionar Prioridade</button>
+	  <a href="/">Voltar para home</a>
+	</div>
+  
+	<div class="lista-cards">
+		<table>
+			<!-- Cabeçalho da Tabela -->
+			<thead>
+			  <tr>
+				<th>Descrição</th>
+				<th>Cor</th>
+				<th>Ações</th>
+			  </tr>
+			</thead>
+			<tbody>
+			  <!-- Iteração para gerar as linhas da tabela -->
+			  <tr *ngFor="let prioridade of prioridadesFiltradasOrdenadas()" (click)="toggleItemsVisibility(prioridade.itemPrioridadeId)">
+				<td>{{ prioridade.descricao }}</td>
+				<td>
+				  <div [ngStyle]="{'background-color': prioridade.cor, 'height': '20px', 'width': '40px', 'border': '1px solid grey'}"></div>
+				</td>
+				<td>
+				  <button (click)="editarPrioridades(prioridade)">Editar</button>
+				  <button (click)="excluirPrioridades(prioridade.itemPrioridadeId)">Excluir</button>
+				</td>
+			  </tr>
+			</tbody>
+		  </table>
+	</div>
+
+	<div *ngIf="formularioVisivelPrioridade" class="modal">
+		<h3>{{ prioridadeEditando ? 'Editar Prioridade' : 'Adicionar Prioridade' }}</h3>
+		<form (ngSubmit)="salvarPrioridade()">
+		  <input type="text" [(ngModel)]="prioridadeDescricao" name="prioridadeDescricao" placeholder="Descrição da Lista" required>
+		  <input type="color" [(ngModel)]="prioridadeCor" name="prioridadeCor" required>
+		  <button type="submit">Salvar</button>
+		  <button type="button" (click)="fecharFormularioPrioridade()">Cancelar</button>
+		</form>
+	  </div>
+  </div>
+  

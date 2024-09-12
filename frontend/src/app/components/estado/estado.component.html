@@ -1,0 +1,44 @@
+<div class="container">
+	<h1>Estados de Items</h1>
+  
+	<div class="filtro-ordenacao">
+	  <input type="text" [(ngModel)]="filtroEstado" name="filtroEstado" placeholder="Filtrar Estados por Descrição">
+	  <select [(ngModel)]="ordenacaoEstados" name="ordenacaoEstados">
+		<option value="descricao">Ordenar Listas por Descrição</option>
+	  </select>
+	  <button (click)="abrirFormularioEstado()">Adicionar Estado</button>
+	  <a href="/">Voltar para home</a>
+	</div>
+  
+	<div class="lista-cards">
+		<table>
+			<!-- Cabeçalho da Tabela -->
+			<thead>
+			  <tr>
+				<th>Descrição</th>
+				<th>Ações</th>
+			  </tr>
+			</thead>
+			<tbody>
+			  <!-- Iteração para gerar as linhas da tabela -->
+			  <tr *ngFor="let estado of estadosFiltradasOrdenadas()" (click)="toggleItemsVisibility(estado.itemEstadoId)">
+				<td>{{ estado.descricao }}</td>
+				<td>
+				  <button (click)="editarEstados(estado)">Editar</button>
+				  <button (click)="excluirEstados(estado.itemEstadoId)">Excluir</button>
+				</td>
+			  </tr>
+			</tbody>
+		  </table>
+	</div>
+
+	<div *ngIf="formularioVisivelEstado" class="modal">
+		<h3>{{ estadoEditando ? 'Editar Estado' : 'Adicionar Estado' }}</h3>
+		<form (ngSubmit)="salvarEstado()">
+		  <input type="text" [(ngModel)]="estadoDescricao" name="estadoDescricao" placeholder="Descrição da Lista" required>
+		  <button type="submit">Salvar</button>
+		  <button type="button" (click)="fecharFormularioEstado()">Cancelar</button>
+		</form>
+	  </div>
+  </div>
+  

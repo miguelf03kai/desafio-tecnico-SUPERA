@@ -1,0 +1,70 @@
+<div class="container">
+	<h1>Listas</h1>
+  
+	<div class="filtro-ordenacao">
+	  <input type="text" [(ngModel)]="filtroLista" name="filtroLista" placeholder="Filtrar Listas por Descrição">
+	  <select [(ngModel)]="ordenacaoListas" name="ordenacaoListas">
+		<option value="descricao">Ordenar Listas por Descrição</option>
+	  </select>
+	  <button (click)="abrirFormularioLista()">Adicionar Lista</button>
+	  <a href="/prioridade">Cadastro Prioridade de Item</a>
+	  <a href="/estado">Cadastro Estado de Item</a>
+	</div>
+  
+	<div class="lista-cards">
+	  <div *ngFor="let lista of listasFiltradasOrdenadas()" class="card" (click)="toggleItemsVisibility(lista.listaId)">
+		<h3>{{ lista.descricao }}</h3>
+		<button (click)="editarLista(lista)">Editar</button>
+		<button (click)="excluirLista(lista)">Excluir</button>
+	  </div>
+	</div>
+  
+	<div *ngIf="selectedLista">
+	  <h2>Itens da Lista: {{ selectedLista.descricao }}</h2>
+  
+	  <div class="filtro-ordenacao">
+		<input type="text" [(ngModel)]="filtroItem" name="filtroItem" placeholder="Filtrar Itens por Descrição">
+		<select [(ngModel)]="ordenacaoItens" name="ordenacaoItens">
+		  <option value="descricao">Ordenar Itens por Descrição</option>
+		  <option value="prioridade">Ordenar por Prioridade</option>
+		  <option value="estado">Ordenar por Estado</option>
+		</select>
+		<button (click)="abrirFormularioItem()">Adicionar Item</button>
+	  </div>
+  
+	  <div class="itens-grid">
+		<div *ngFor="let item of itensFiltradosOrdenados()" class="card" [ngStyle]="{'background-color': getPrioridadeCor(item.itemPrioridadeId)}">
+		  <h3>{{ item.descricao }}</h3>
+		  <p>Prioridade: {{ getPrioridadeDescricao(item.itemPrioridadeId) }}</p>
+		  <p>Estado: {{ getEstadoDescricao(item.itemEstadoId) }}</p>
+		  <button (click)="editarItem(item)">Editar</button>
+		  <button (click)="excluirItem(item.itemId)">Excluir</button>
+		</div>
+	  </div>
+	</div>
+  
+	<div *ngIf="formularioVisivelLista" class="modal">
+	  <h3>{{ listaEditando ? 'Editar Lista' : 'Adicionar Lista' }}</h3>
+	  <form (ngSubmit)="salvarLista()">
+		<input type="text" [(ngModel)]="listaDescricao" name="listaDescricao" placeholder="Descrição da Lista" required>
+		<button type="submit">Salvar</button>
+		<button type="button" (click)="fecharFormularioLista()">Cancelar</button>
+	  </form>
+	</div>
+  
+	<div *ngIf="formularioVisivelItem" class="modal">
+	  <h3>{{ itemEditando ? 'Editar Item' : 'Adicionar Item' }}</h3>
+	  <form (ngSubmit)="salvarItem()">
+		<input type="text" [(ngModel)]="itemDescricao" name="itemDescricao" placeholder="Descrição do Item" required>
+		<select [(ngModel)]="itemEstadoId" name="itemEstadoId">
+		  <option *ngFor="let estado of estados" [value]="estado.itemEstadoId">{{ estado.descricao }}</option>
+		</select>
+		<select [(ngModel)]="itemPrioridadeId" name="itemPrioridadeId">
+		  <option *ngFor="let prioridade of prioridades" [value]="prioridade.itemPrioridadeId">{{ prioridade.descricao }}</option>
+		</select>
+		<button type="submit">Salvar</button>
+		<button type="button" (click)="fecharFormularioItem()">Cancelar</button>
+	  </form>
+	</div>
+  </div>
+  
